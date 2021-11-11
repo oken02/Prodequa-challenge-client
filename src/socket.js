@@ -4,7 +4,6 @@ export let socket;
 
 export const connect = (userID, fullName) => {
   socket = io("");
-  console.log("CONECTADO POR SOCKETS");
 };
 
 // class Socket {

@@ -35,15 +35,14 @@ function App() {
   useEffect(() => {
     if (isAuthenticated) {
       // validar que no se agreguen mas listeners
-      socket.on("new-forms", (forms) => {
+      socket.on("new-forms", (forms, first) => {
         setForms(forms);
-        toast({
-          title: "New form",
-          description: "Se ha recibido un nuevo fornulario",
-          status: "success",
-          duration: 9000,
-          isClosable: true,
-        });
+        !first &&
+          toast({
+            title: "nuevo formulario registrado",
+            status: "info",
+            isClosable: true,
+          });
       });
     }
   }, [isAuthenticated]);

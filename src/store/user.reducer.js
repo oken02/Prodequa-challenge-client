@@ -12,7 +12,7 @@ export const sendValidation = createAsyncThunk(
   "SEND_VALIDATION",
   (data, thunkAPI) => {
     return axios
-      .get("/api/auth/validate", {}, getAuthHeader())
+      .get("/api/auth/validate", getAuthHeader())
       .then(({ data }) => data);
   }
 );

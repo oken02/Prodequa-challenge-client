@@ -21,7 +21,7 @@ const Form = ({ toast }) => {
     <>
       <MainHeading text="Formulario" />
 
-      <Box border="5px dotted gray" borderColor="teal" borderY="none" p="7">
+      <Box border="3px solid gray" borderColor="teal" borderTop="none" p="7">
         <Formik
           initialValues={{
             fullName: "",
@@ -33,9 +33,6 @@ const Form = ({ toast }) => {
             email: "",
           }}
           validationSchema={Yup.object({
-            // fullName: Yup.string()
-            //   .max(15, "Must be 15 characters or less")
-            //   .required("Requerido"),
             fullName: Yup.string().required("Requerido"),
             reason: Yup.string().required("Requerido"),
             position: Yup.string().required("Requerido"),
@@ -44,21 +41,21 @@ const Form = ({ toast }) => {
             message: Yup.string().required("Requerido"),
             email: Yup.string().email("correo no valido").required("Requerido"),
           })}
-          onSubmit={async (values, { setSubmitting }) => {
+          onSubmit={async (values, { setSubmitting, resetForm }) => {
             const { data: formCreated } = await axios.post(
               "/api/forms",
               values
             );
+
             setSubmitting(false);
             socket.emit("new-form", formCreated);
             toast({
               title: "Formulario enviado",
-              description: "Se envio correctamnete el form",
               status: "success",
-              duration: 9000,
               isClosable: true,
             });
-            navigate("/forms");
+
+            isAuthenticated ? navigate("/forms") : resetForm();
           }}
         >
           {(formik) => (

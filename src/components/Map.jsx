@@ -5,7 +5,7 @@ import { Button, Box } from "@chakra-ui/react";
 import MainHeading from "./MainHeading";
 
 const Map = () => {
-  const mapRef = useRef({});
+  const mapRef = useRef();
 
   useEffect(() => {
     const loader = new Loader({
